@@ -2,17 +2,18 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	_ "github.com/golang/mock/mockgen/model"
 	db "github.com/techschool/simplebank/db/sqlc"
 )
 
 // Server serves HTTP requests for our banking service
 type Server struct {
-	store  *db.Store
+	store  db.Store
 	router *gin.Engine
 }
 
 // NewServer creates a new HTTP server and sets up routing
-func NewServer(store *db.Store) *Server {
+func NewServer(store db.Store) *Server {
 	server := &Server{store: store}
 	router := gin.Default()
 	router.POST("/accounts", server.createAccount)
